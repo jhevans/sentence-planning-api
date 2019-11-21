@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +19,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 @Table(name = "OFFENDER")
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 public class OffenderEntity implements Serializable {
 
     @Id

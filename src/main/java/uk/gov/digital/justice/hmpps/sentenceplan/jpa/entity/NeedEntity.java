@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uk.gov.digital.justice.hmpps.sentenceplan.api.MotivationRef;
 
 import javax.persistence.*;
@@ -15,13 +18,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @Table(name = "NEED")
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 public class NeedEntity implements Serializable {
 
     @Id
@@ -53,10 +57,12 @@ public class NeedEntity implements Serializable {
     @Column(name = "CREATED_ON")
     private LocalDateTime createdOn;
 
+    @NotAudited
     @ManyToOne
     @JoinColumn(name = "SENTENCE_PLAN_UUID", referencedColumnName = "UUID")
     private SentencePlanEntity sentencePlan;
 
+    @NotAudited
     @OneToMany(mappedBy = "need", cascade = CascadeType.PERSIST)
     private List<MotivationEntity> motivations = new ArrayList<>();
 

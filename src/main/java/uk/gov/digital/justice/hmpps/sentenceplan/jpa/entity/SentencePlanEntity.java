@@ -8,6 +8,12 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
+import org.hibernate.envers.Audited;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import uk.gov.digital.justice.hmpps.sentenceplan.api.EventType;
 import uk.gov.digital.justice.hmpps.sentenceplan.api.PlanStatus;
 
@@ -27,6 +33,8 @@ import java.util.stream.Collectors;
         @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @Table(name = "SENTENCE_PLAN")
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 public class SentencePlanEntity implements Serializable {
 
     @Id
@@ -48,14 +56,29 @@ public class SentencePlanEntity implements Serializable {
     @Column(name = "EVENT_TYPE")
     private EventType eventType;
 
-    @Column(name = "CREATED_ON")
-    private LocalDateTime createdOn;
 
     @Column(name = "START_DATE")
     private LocalDateTime startDate;
 
     @Column(name = "END_DATE")
     private LocalDateTime endDate;
+
+    @CreatedDate
+    @Column(name = "CREATED_ON")
+    private LocalDateTime createdOn;
+
+    @CreatedBy
+    @Column(name = "CREATED_BY")
+    private String createUserId;
+
+    @LastModifiedDate
+    @Column(name = "MODIFIED_ON")
+    private LocalDateTime modifyDateTime;
+
+    @LastModifiedBy
+    @Column(name = "MODIFIED_BY")
+    private String modifyUserId;
+
 
     @Column(name = "ASSESSMENT_NEEDS_LAST_IMPORTED_ON")
     private LocalDateTime assessmentNeedsLastImportedOn;
@@ -71,7 +94,6 @@ public class SentencePlanEntity implements Serializable {
         this.offender = offender;
         this.needs = new ArrayList<>();
         this.uuid = UUID.randomUUID();
-        this.createdOn = LocalDateTime.now();
         this.startDate = LocalDateTime.now();
         this.status = PlanStatus.DRAFT;
         this.eventType = EventType.CREATED;
