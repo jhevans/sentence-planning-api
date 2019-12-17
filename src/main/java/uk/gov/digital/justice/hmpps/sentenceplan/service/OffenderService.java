@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.digital.justice.hmpps.sentenceplan.jpa.entity.SentencePlanEntity;
 import uk.gov.digital.justice.hmpps.sentenceplan.service.exceptions.EntityNotFoundException;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.OASYSAssessmentAPIClient;
-import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffender;
+import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffenderSummary;
 import uk.gov.digital.justice.hmpps.sentenceplan.jpa.entity.OffenderEntity;
 import uk.gov.digital.justice.hmpps.sentenceplan.jpa.repository.OffenderRespository;
 
@@ -53,8 +53,8 @@ private Clock clock;
                          .orElseThrow(() -> new EntityNotFoundException(String.format("Offender %s not found", offenderId)))));
     }
 
-    private OffenderEntity saveOASysOffender(OasysOffender oasysOffender) {
-        var offender = new OffenderEntity(oasysOffender.getOasysOffenderId(), oasysOffender.getIdentifiers().getNomisId(), oasysOffender.getIdentifiers().getBookingNumber());
+    private OffenderEntity saveOASysOffender(OasysOffenderSummary oasysOffenderSummary) {
+        var offender = new OffenderEntity(oasysOffenderSummary.getOasysOffenderId(), oasysOffenderSummary.getIdentifiers().getNomisId(), oasysOffenderSummary.getIdentifiers().getBookingNumber());
         offenderRespository.save(offender);
         return offender;
     }

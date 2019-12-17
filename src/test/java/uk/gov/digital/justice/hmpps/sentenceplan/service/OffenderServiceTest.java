@@ -10,7 +10,7 @@ import uk.gov.digital.justice.hmpps.sentenceplan.jpa.entity.*;
 import uk.gov.digital.justice.hmpps.sentenceplan.service.exceptions.EntityNotFoundException;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.OASYSAssessmentAPIClient;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysIdentifiers;
-import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffender;
+import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffenderSummary;
 import uk.gov.digital.justice.hmpps.sentenceplan.jpa.repository.OffenderRespository;
 
 import java.time.Clock;
@@ -26,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static uk.gov.digital.justice.hmpps.sentenceplan.api.ActionOwner.PRACTITIONER;
 import static uk.gov.digital.justice.hmpps.sentenceplan.api.ActionOwner.SERVICE_USER;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -52,7 +51,7 @@ public class OffenderServiceTest {
     @Test
     public void shouldStoreOffenderMetaDataIfNotExists() {
 
-        var offender = new OasysOffender(123456L, "John", "Smith","","",new OasysIdentifiers("12345", 123L));
+        var offender = new OasysOffenderSummary(123456L, "John", "Smith","","",new OasysIdentifiers("12345", 123L));
 
         when(offenderRespository.findByOasysOffenderId(123456L)).thenReturn(Optional.empty());
         when(oasysAssessmentAPIClient.getOffenderById(123456L))
@@ -90,7 +89,7 @@ public class OffenderServiceTest {
     @Test
     public void shouldUpdateBookingNumberIfNotUpdatedToday() {
         var sentencePlan = getSentencePlanWithOffender();
-        var offender = new OasysOffender(1L, null, null, null, null, new OasysIdentifiers("Nomis", 3456L));
+        var offender = new OasysOffenderSummary(1L, null, null, null, null, new OasysIdentifiers("Nomis", 3456L));
         when(oasysAssessmentAPIClient.getOffenderById(1L)).thenReturn(Optional.ofNullable(offender));
         when(offenderRespository.save(any())).thenReturn(null);
 

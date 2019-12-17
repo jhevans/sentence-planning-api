@@ -198,7 +198,7 @@ public class SentencePlanResourceTest {
 
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/summary"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffender(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffenderSummary(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
 
 
         var requestBody = new CreateSentencePlanRequest("123", OffenderReferenceType.OASYS);
@@ -221,7 +221,7 @@ public class SentencePlanResourceTest {
         var assessmentApi = createMockAssessmentDataForOffender(123L);
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/summary"))
                     .andExpect(method(GET))
-                    .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffender(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
+                    .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffenderSummary(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
 
         var requestBody = new CreateSentencePlanRequest("123", OffenderReferenceType.OASYS);
 
@@ -247,7 +247,7 @@ public class SentencePlanResourceTest {
         var assessmentApi = createMockAssessmentDataForOffender(123L);
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/summary"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffender(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffenderSummary(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
 
         var requestBody = new CreateSentencePlanRequest("123", OffenderReferenceType.OASYS);
 
@@ -284,7 +284,7 @@ public class SentencePlanResourceTest {
 
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/summary"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffender(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffenderSummary(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
 
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/assessments/latest?assessmentType=LAYER_3"))
                 .andExpect(method(GET))

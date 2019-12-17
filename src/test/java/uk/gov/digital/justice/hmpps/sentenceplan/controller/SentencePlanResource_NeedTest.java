@@ -23,7 +23,7 @@ import uk.gov.digital.justice.hmpps.sentenceplan.api.*;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.AssessmentNeed;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysAssessment;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysIdentifiers;
-import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffender;
+import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffenderSummary;
 import uk.gov.digital.justice.hmpps.sentenceplan.jpa.repository.SentencePlanRepository;
 import uk.gov.digital.justice.hmpps.sentenceplan.service.OffenderReferenceType;
 import java.util.List;
@@ -129,7 +129,7 @@ public class SentencePlanResource_NeedTest {
 
         assessmentApi.expect(requestTo("http://localhost:8081/offenders/oasysOffenderId/123/summary"))
                 .andExpect(method(GET))
-                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffender(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(mapper.writeValueAsString(new OasysOffenderSummary(123L, "Gary", "Smith", "", "", new OasysIdentifiers("12345678", 123L))), MediaType.APPLICATION_JSON));
 
 
         var requestBody = new CreateSentencePlanRequest("123", OffenderReferenceType.OASYS);

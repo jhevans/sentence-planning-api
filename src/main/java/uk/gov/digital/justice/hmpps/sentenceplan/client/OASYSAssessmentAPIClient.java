@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import uk.gov.digital.justice.hmpps.sentenceplan.application.LogEvent;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysAssessment;
-import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffender;
+import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysOffenderSummary;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysRefElement;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.dto.OasysSentencePlan;
 import uk.gov.digital.justice.hmpps.sentenceplan.client.exception.OasysClientException;
@@ -31,9 +31,9 @@ public class OASYSAssessmentAPIClient {
         this.assessmentApiBasePath = assessmentApiBasePath;
     }
 
-    public Optional<OasysOffender> getOffenderById(long oasysOffenderId) {
+    public Optional<OasysOffenderSummary> getOffenderById(long oasysOffenderId) {
         try {
-            return Optional.ofNullable(restTemplate.getForEntity(assessmentApiBasePath + "/offenders/oasysOffenderId/{oasysOffenderId}/summary", OasysOffender.class, oasysOffenderId).getBody());
+            return Optional.ofNullable(restTemplate.getForEntity(assessmentApiBasePath + "/offenders/oasysOffenderId/{oasysOffenderId}/summary", OasysOffenderSummary.class, oasysOffenderId).getBody());
         }
         catch(HttpClientErrorException e) {
             if(e.getRawStatusCode() == 404) {

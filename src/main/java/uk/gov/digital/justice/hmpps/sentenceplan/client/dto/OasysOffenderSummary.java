@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class OasysOffender {
+public class OasysOffenderSummary {
     @JsonProperty("oasysOffenderId")
     private Long oasysOffenderId;
     @JsonProperty("familyName")
